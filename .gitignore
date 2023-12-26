@@ -1,0 +1,20 @@
+
+# Visual Studio dirs:
+**/.vs/*
+**/CodeDB/*
+**/VisualGDBCache/*
+**/CodeExplorer/*
+# Visual Studio files:
+**/*.user
+**/*.mak
+**/*.dat
+
+# Build dir:
+build/*
+
+# Other files:
+*.TMP
+
+# Local temporary dirs:
+src/app/temp/*
+!src/app/temp/.gitkeep

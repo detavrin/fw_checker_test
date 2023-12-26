@@ -1,0 +1,30 @@
+# Append current directory to CMAKE_MODULE_PATH for making device specific cmake modules visible
+get_filename_component(STM32_CMAKE_DIR ${CMAKE_CURRENT_LIST_FILE} DIRECTORY)
+list(APPEND CMAKE_MODULE_PATH ${STM32_CMAKE_DIR})
+
+# Target definition
+set(CMAKE_SYSTEM_NAME      Generic)
+set(CMAKE_SYSTEM_PROCESSOR ARM)
+
+set(TOOLCHAIN_PREFIX       "arm-none-eabi")
+
+# Perform compiler test with static library
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
+# Find toolchain compilers
+find_program(CMAKE_C_COMPILER   NAMES ${TOOLCHAIN_PREFIX}-gcc)
+find_program(CMAKE_CXX_COMPILER NAMES ${TOOLCHAIN_PREFIX}-g++)
+find_program(CMAKE_ASM_COMPILER NAMES ${TOOLCHAIN_PREFIX}-gcc)
+
+# Find toolchain tools
+find_program(CMAKE_OBJCOPY  NAMES ${TOOLCHAIN_PREFIX}-objcopy)
+find_program(CMAKE_OBJDUMP  NAMES ${TOOLCHAIN_PREFIX}-objdump)
+find_program(CMAKE_SIZE     NAMES ${TOOLCHAIN_PREFIX}-size   )
+find_program(CMAKE_DEBUGGER NAMES ${TOOLCHAIN_PREFIX}-gdb    )
+find_program(CMAKE_CPPFILT  NAMES ${TOOLCHAIN_PREFIX}-c++filt)
+
+set(CMAKE_FIND_ROOT_PATH ${TOOLCHAIN_PREFIX}/${${TOOLCHAIN}} ${CMAKE_PREFIX_PATH})
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
